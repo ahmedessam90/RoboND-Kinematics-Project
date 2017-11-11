@@ -31,10 +31,6 @@
 ---
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  
-
-You're reading it!
-
 ### Kinematic Analysis
 #### 1. Run the forward_kinematics demo and evaluate the kr210.urdf.xacro file to perform kinematic analysis of Kuka KR210 robot and derive its DH parameters.
 
@@ -232,15 +228,23 @@ I used IK_debug.py to debug my inverse kinematics code and that is the results i
 Total run time to calculate joint angles from pose is 33.7475 seconds
 
 Wrist error for x position is: 0.00002426
+
 Wrist error for y position is: 0.00000562
+
 Wrist error for z position is: 0.00006521
+
 Overall wrist offset is: 0.00006980 units
 
 Theta 1 error is: 3.14309971
+
 Theta 2 error is: 0.27927962
+
 Theta 3 error is: 1.94030206
+
 Theta 4 error is: 3.11289370
+
 Theta 5 error is: 0.03462632
+
 Theta 6 error is: 6.20633831
 
 **These theta errors may not be a correct representation of your code, due to the fact            
