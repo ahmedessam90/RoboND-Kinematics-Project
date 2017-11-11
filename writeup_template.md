@@ -40,9 +40,11 @@ You're reading it!
 i used the same axis assignment as explained in the lessons and derived the DH parameters
 
 The figure below is a screenshot from the lesson explainning the assignment of axis for deriving DH parameters
+
 ![alt text][image1]
 
 From the figure below i get the alpha values in DH parameters
+
 ![alt text][image2]
 
 and using data in kr210.urdf.xacro file i get the other DH parameters as following: 
