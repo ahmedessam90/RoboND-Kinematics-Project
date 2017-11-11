@@ -17,8 +17,8 @@
 
 [//]: # (Image References)
 
-[image7]: ./misc_images/gripper_frame.png
-[image8]: ./misc_images/DH_parameters.png
+[image7]: ./misc_images/gripperframe.png
+[image8]: ./misc_images/DH parameters.png
 [image4]: ./misc_images/theta1.png
 [image5]: ./misc_images/theta2.png
 [image6]: ./misc_images/theta3.png
@@ -43,13 +43,13 @@ i used the same axis assignment as explained in the lessons and derived the DH p
 The figure below is a screenshot from the lesson explainning the assignment of axis for deriving DH parameters
 
 
-    ![alt text][image7]
+   ![alt text][image7]
 
 
 From the figure below i get the alpha values in DH parameters
 
 
-    ![alt text][image8]
+   ![alt text][image8]
 
 
 and using data in kr210.urdf.xacro file i get the other DH parameters as following: 
