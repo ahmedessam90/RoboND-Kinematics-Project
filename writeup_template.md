@@ -20,6 +20,10 @@
 [image1]: ./misc_images/misc1.png
 [image2]: ./misc_images/misc3.png
 [image3]: ./misc_images/misc2.png
+[image4]: ./misc_images/theta1.png
+[image5]: ./misc_images/theta2.png
+[image6]: ./misc_images/theta3.png
+
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -53,9 +57,81 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
-And here's where you can draw out and show your math for the derivation of your theta angles. 
+ Steps
+1-Calculate wrist center poistion w.r.t base link from end effector poistion
 
-![alt text][image2]
+![wrist postion equation](http://latex.codecogs.com/gif.latex?%5Clarge%20_%7B%7D%5E%7B0%7D%5Ctextrm%7Br%7D_%7BWC/0%7D%3D%7B%7D%5E%7B0%7D%5Ctextrm%7Br%7D_%7BEE/0%7D-d*_%7B6%7D%5E%7B0%7D%5Ctextrm%7BR%7D*%5Cbegin%7Bbmatrix%7D%200%5C%5C%200%5C%5C%201%5C%5C%20%5Cend%7Bbmatrix%7D)
+
+where d is the position of wrist center w.r.t end efffector
+and the rotation matrix is obtained from yaw , pitch & roll angles of end effector multiplied by correction matrix s0 the wrist position is obtained using equations below
+
+	    #Rotational matrix using yaw,pitch & roll of the gripper
+	    Rrpy=rot_z(yaw)*rot_y(pitch)*rot_x(roll)*R_corr
+	    #Calculate the position of wrist center
+	    l_gripper=0
+	    WC_x=px-((d67+l_gripper)*Rrpy[0,2])
+	    WC_y=py-((d67+l_gripper)*Rrpy[1,2])
+	    WC_z=pz-((d67+l_gripper)*Rrpy[2,2])
+
+2-Calculate thata 1-3 using wrist position
+
+theta 1 can be calculated from the figure below
+     
+      #theta1 calculation
+	    theta1=atan2(WC_y,WC_x)
+
+
+![alt text][image4]
+
+theta 2 can be calculated from the figure below
+
+      #theta2 calculation
+	    beta1=atan2(WC_z-d12,(sqrt((WC_x**2)+(WC_y**2))-a12))
+	    
+	    #d25:distance from joint 2 to WC
+	    d25=sqrt(((WC_z-d12)**2)+((sqrt((WC_x**2)+(WC_y**2))-a12)**2))
+
+	    #d35:distance from joint 3 to WC
+	    d35=sqrt((d45**2)+(a34**2))
+	    
+	    beta2=acos(((d25**2)+(a23**2)-(d35**2))/(2*d25*a23))
+	    
+	    theta2=(np.pi/2)-beta1-beta2
+      
+ ![alt text][image5]
+     
+theta 3 can be calculated from the figure below
+
+
+	    #theta3 calculation
+
+	    beta3=acos(((a23**2)+(d35**2)-(d25**2))/(2*d35*a23))
+	    
+	    beta4=atan2(a34,d45)
+	    
+	    theta3=(np.pi/2)-beta3-beta4
+	    
+   ![alt text][image6]
+
+
+3-Calculate thata 4-6 using rotation matrices to get Euler angles
+
+      #theta4,theta5,theta6 calculation
+      T0_3=T0_1 * T1_2 * T2_3 
+	    T0_3=(T0_3.evalf(subs={q1: theta1, q2: theta2, q3: theta3}))
+
+	    R0_3=T0_3[0:3,0:3]
+	    R3_6=R0_3.T * Rrpy
+
+	    ### Euler Angles from Rotation Matrix
+	    # sympy synatx for atan2 is atan2(y, x)
+	    theta4 = atan2(R3_6[2,2], -R3_6[0,2])
+	    theta5 = atan2(sqrt(R3_6[0,2]**2 + R3_6[2,2]**2), R3_6[1,2])
+	    theta6 = atan2(-R3_6[1,1], R3_6[1,0])
+
+
+
+
 
 ### Project Implementation
 
