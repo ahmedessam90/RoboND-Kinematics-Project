@@ -57,8 +57,9 @@ Links | alpha(i-1) | a(i-1) | d(i-1) | theta(i)
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
- Steps
-1-Calculate wrist center poistion w.r.t base link from end effector poistion
+##### Steps
+ 
+###### 1-Calculate wrist center poistion w.r.t base link from end effector poistion
 
 ![wrist postion equation](http://latex.codecogs.com/gif.latex?%5Clarge%20_%7B%7D%5E%7B0%7D%5Ctextrm%7Br%7D_%7BWC/0%7D%3D%7B%7D%5E%7B0%7D%5Ctextrm%7Br%7D_%7BEE/0%7D-d*_%7B6%7D%5E%7B0%7D%5Ctextrm%7BR%7D*%5Cbegin%7Bbmatrix%7D%200%5C%5C%200%5C%5C%201%5C%5C%20%5Cend%7Bbmatrix%7D)
 
@@ -73,17 +74,17 @@ and the rotation matrix is obtained from yaw , pitch & roll angles of end effect
 	    WC_y=py-((d67+l_gripper)*Rrpy[1,2])
 	    WC_z=pz-((d67+l_gripper)*Rrpy[2,2])
 
-2-Calculate thata 1-3 using wrist position
+###### 2-Calculate thata 1-3 using wrist position
 
-theta 1 can be calculated from the figure below
+###### a-theta 1 can be calculated from the figure below
      
-      #theta1 calculation
+            #theta1 calculation
 	    theta1=atan2(WC_y,WC_x)
 
 
 ![alt text][image4]
 
-theta 2 can be calculated from the figure below
+###### b-theta 2 can be calculated from the figure below
 
       #theta2 calculation
 	    beta1=atan2(WC_z-d12,(sqrt((WC_x**2)+(WC_y**2))-a12))
@@ -100,7 +101,7 @@ theta 2 can be calculated from the figure below
       
  ![alt text][image5]
      
-theta 3 can be calculated from the figure below
+###### c-theta 3 can be calculated from the figure below
 
 
 	    #theta3 calculation
@@ -114,7 +115,7 @@ theta 3 can be calculated from the figure below
    ![alt text][image6]
 
 
-3-Calculate thata 4-6 using rotation matrices to get Euler angles
+##### 3-Calculate thata 4-6 using rotation matrices to get Euler angles
 
       #theta4,theta5,theta6 calculation
       T0_3=T0_1 * T1_2 * T2_3 
