@@ -22,7 +22,7 @@
 [image4]: ./misc_images/theta1.png
 [image5]: ./misc_images/theta2.png
 [image6]: ./misc_images/theta3.png
-
+[image9]: ./misc_images/theta46.png
 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
@@ -102,7 +102,8 @@ and the rotation matrix is obtained from yaw , pitch & roll angles of end effect
 ###### 2-Calculate thata 1-3 using wrist position
 
 ###### a-theta 1 can be calculated from the figure below
-     
+###### theta 1 is calculated from the right angle triangle in XY plane as in the equation below
+      
       #theta1 calculation
       theta1=atan2(WC_y,WC_x)
 
@@ -111,6 +112,13 @@ and the rotation matrix is obtained from yaw , pitch & roll angles of end effect
 
 ###### b-theta 2 can be calculated from the figure below
 
+###### theta 2 can be calculated if beta1 & beta2 are known
+###### beta1 is calculated from right angle triangle with sides S1 & S2
+
+###### beta2 is calcualted from the triangle with vertices joint 2,3,5 using cosine law
+###### so it is required to get the sides d25 & d35
+###### d25 (distance from joint 2 to WC )can be obtained using the same right angle triangle used to get beta1
+###### d35 (distance from joint 3 to WC) can be obtained using right angle triagle used to calculte beta4 in image6 for calculating thet3
       #theta2 calculation
 	    beta1=atan2(WC_z-d12,(sqrt((WC_x**2)+(WC_y**2))-a12))
 	    
@@ -128,6 +136,11 @@ and the rotation matrix is obtained from yaw , pitch & roll angles of end effect
      
 ###### c-theta 3 can be calculated from the figure below
 
+###### theta 3 can be calculated if beta3 & beta4 are known
+###### beta4 is calculated from right angle triangle with sides a34 & d45
+
+###### beta3 is calcualted from the triangle with vertices joint 2,3,5 using cosine law
+
 
 	    #theta3 calculation
 
@@ -141,6 +154,11 @@ and the rotation matrix is obtained from yaw , pitch & roll angles of end effect
 
 
 ##### 3-Calculate thata 4-6 using rotation matrices to get Euler angles
+
+##### I followed the same steps as in the lesson as attached in the image below
+
+![alt text][image9]
+
 
             #theta4,theta5,theta6 calculation
             T0_3=T0_1 * T1_2 * T2_3 
